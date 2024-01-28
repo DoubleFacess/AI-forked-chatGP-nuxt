@@ -28,9 +28,21 @@
 		message.value = '';
 
 		const res = await fetch(`/api/chat`, {
+			credentials: "same-origin", // include, *same-origin, omit
+			headers: {
+				"Content-Type": "application/json",
+				"Access-Control-Allow-Origin" : '*',
+				"Access-Control-Allow-Credentials": "true",
+				"Content-Type': 'application/x-www-form-urlencoded"
+    		},
+			/*
+			headers.append('Access-Control-Allow-Origin', 'http://localhost:3000');
+			headers.append('Access-Control-Allow-Credentials', 'true');
+			*/
 			mode: 'cors',
+			method: 'post',
 			body: JSON.stringify(messages.value.slice(1)),
-			method: 'post'
+			
 		});
 
 		if (res.status === 200) {
