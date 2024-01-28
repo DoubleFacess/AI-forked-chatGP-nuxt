@@ -4,28 +4,28 @@
 			role: 'AI',
 			message: 'Hello! How can I help you?'
 		}
-	]);
+	])
 	const loading = ref(false);
 	const message = ref('');
 
 	const scrollToEnd = () => {
 		setTimeout(() => {
-			const chatMessages = document.querySelector('.chat-messages > div:last-child');
-			chatMessages?.scrollIntoView({ behavior: 'smooth', block: 'end' });
-		}, 100);
+			const chatMessages = document.querySelector('.chat-messages > div:last-child')
+			chatMessages?.scrollIntoView({ behavior: 'smooth', block: 'end' })
+		}, 100)
 	};
 
 	const sendPrompt = async () => {
-		if (message.value === '') return;
-		loading.value = true;
+		if (message.value === '') return
+		loading.value = true
 
 		messages.value.push({
 			role: 'User',
 			message: message.value
-		});
+		})
 
-		scrollToEnd();
-		message.value = '';
+		scrollToEnd()
+		message.value = ''
 
 		//const headers = {}
 		/*
@@ -40,22 +40,22 @@
 		*/
 		//headers.append('Access-Control-Allow-Origin', '*')
 		//headers.append('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
-
-		const res = await fetch(`/api/chat`, {
+		const apiUrl = 'http://localhost:8080' || ''; // Assicurati che API_URL sia definita
+		const res = await fetch(`${apiUrl}/api/chat`, {
 			headers: {
-				"Content-Type": "application/json",
-				"Access-Control-Allow-Origin" : '*',
-				"origin": "http://localhost:3000, https://api.openai.com",
+				"Content-Type": "application/json",				
+				"Access-Control-Allow-Headers" : "Origin, X-Requested-With, Content-Type, Accept",
+				"origin": "http://localhost:3000",
 				"x-requested-with": "XMLHttpRequest"
 			},			
 			mode: 'cors',
 			method: 'post',
-			body: JSON.stringify(messages.value.slice(1)),
+			body: JSON.stringify(messages.value.slice(1)), //manda dal secondo elemento dell'array
 			
 		});
 
 		if (res.status === 200) {
-			const response = await res.json();
+			const response = await res.json()
 			messages.value.push({
 				role: 'AI',
 				message: response?.message
@@ -64,11 +64,11 @@
 			messages.value.push({
 				role: 'AI',
 				message: 'Sorry, an error occurred.'
-			});
+			})
 		}
 
 		loading.value = false;
-		scrollToEnd();
+		scrollToEnd()
 	};
 </script>
 
