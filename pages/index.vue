@@ -27,20 +27,27 @@
 		scrollToEnd();
 		message.value = '';
 
+		//const headers = {}
+		/*
+		"Content-Type": "application/json",
+		"Access-Control-Allow-Origin" : '*',
+		"Access-Control-Allow-Credentials": "true",
+		"Content-Type": "application/x-www-form-urlencoded",
+		"Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
+		headers.append('Access-Control-Allow-Credentials', 'true');
+		//"Access-Control-Allow-Headers" : "Origin, X-Requested-With, Content-Type, Accept"
+    	},
+		*/
+		//headers.append('Access-Control-Allow-Origin', '*')
+		//headers.append('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+
 		const res = await fetch(`/api/chat`, {
-			credentials: "same-origin", // include, *same-origin, omit
 			headers: {
 				"Content-Type": "application/json",
 				"Access-Control-Allow-Origin" : '*',
-				"Access-Control-Allow-Credentials": "true",
-				"Content-Type": "application/x-www-form-urlencoded",
-				"Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
-				"Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
-    		},
-			/*
-			headers.append('Access-Control-Allow-Origin', 'http://localhost:3000');
-			headers.append('Access-Control-Allow-Credentials', 'true');
-			*/
+				"origin": "http://localhost:3000, https://api.openai.com",
+				"x-requested-with": "XMLHttpRequest"
+			},			
 			mode: 'cors',
 			method: 'post',
 			body: JSON.stringify(messages.value.slice(1)),
