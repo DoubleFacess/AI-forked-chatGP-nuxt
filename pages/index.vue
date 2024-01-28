@@ -33,7 +33,9 @@
 				"Content-Type": "application/json",
 				"Access-Control-Allow-Origin" : '*',
 				"Access-Control-Allow-Credentials": "true",
-				"Content-Type': 'application/x-www-form-urlencoded"
+				"Content-Type": "application/x-www-form-urlencoded",
+				"Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
+				"Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
     		},
 			/*
 			headers.append('Access-Control-Allow-Origin', 'http://localhost:3000');
